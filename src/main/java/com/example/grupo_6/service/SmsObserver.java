@@ -1,6 +1,8 @@
 package com.example.grupo_6.service;
 import com.example.grupo_6.model.Pedido;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SmsObserver implements PedidoObserver {
 
     @Override
