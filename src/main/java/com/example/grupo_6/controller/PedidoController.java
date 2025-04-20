@@ -16,7 +16,7 @@ public class PedidoController {
     private PedidoService service;
 
     @PostMapping
-    public ResponseEntity cadastrarPedido(@RequestBody Pedido pedido){
+    public ResponseEntity<Pedido> cadastrarPedido(@RequestBody Pedido pedido){
         return ResponseEntity.ok(service.criarPedido(pedido));
     }
 

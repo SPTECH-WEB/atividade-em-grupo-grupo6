@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,9 +14,17 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository repository;
+    private final List<PedidoObserver> observadores;
 
-    public Pedido criarPedido(@Valid Pedido novoPedido){
-        return repository.save(novoPedido);
+    public PedidoService(List<PedidoObserver> observadores) {
+        this.observadores = observadores;
+    }
+
+    public Pedido criarPedido(@Valid Pedido pedido){
+        Pedido salvo = repository.save(pedido);
+        observadores.forEach(obs -> obs.notificarPedido(pedido));
+        return salvo;
+
     }
 
     public List<Pedido> listarPedidos(){

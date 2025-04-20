@@ -8,11 +8,11 @@ import java.util.List;
 @Service
 public class FreteService {
     private final List<FreteStrategy> estrategias;
-    private final List<PedidoObserver> observadores;
 
-    public FreteService(List<FreteStrategy> estrategias, List<PedidoObserver> observadores) {
+
+    public FreteService(List<FreteStrategy> estrategias) {
         this.estrategias = estrategias;
-        this.observadores = observadores;
+
     }
 
 
@@ -22,8 +22,6 @@ public class FreteService {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Tipo de Frete inválido!"))
                 .calcular(peso);
-
-        observadores.forEach(obs -> obs.notificarPedido(pedido));
 
         return valor;
     }
